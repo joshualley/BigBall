@@ -1,13 +1,13 @@
 package model
 
 type User struct {
-	ID   int64  `gorm:"column:id"`
-	Name string `gorm:"column:name"`
+	ID        int64  `gorm:"column:id"`
+	Name      string `gorm:"column:name"`
 	AvatarUrl string `gorm:"avatar_url"`
 }
 
 func (u *User) TableName() string {
-	return "user"
+	return "User"
 }
 
 type Record struct {
@@ -18,5 +18,5 @@ type Record struct {
 }
 
 func (r *Record) TableName() string {
-	return "record"
+	return "Record"
 }
