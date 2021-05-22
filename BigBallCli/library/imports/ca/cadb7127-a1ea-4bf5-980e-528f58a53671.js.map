@@ -1,0 +1,1 @@
+{"version":3,"sources":["assets\\Script\\Config.ts"],"names":[],"mappings":";;;;;;AAAA;IAAA;IAEA,CAAC;IADiB,cAAO,GAAG,0BAA0B,CAAC;IACvD,aAAC;CAFD,AAEC,IAAA;kBAFoB,MAAM","file":"","sourceRoot":"/","sourcesContent":["export default class Config {\r\n    public static BaseURL = \"https://valleys.qicp.vip\";\r\n}"]}

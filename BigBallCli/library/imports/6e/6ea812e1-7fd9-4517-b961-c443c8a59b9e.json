@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "headicon",
+    "texture": "cf485c36-e7b7-436a-99fe-50b70c188b0b",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      709,
+      711
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      709,
+      711
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}
