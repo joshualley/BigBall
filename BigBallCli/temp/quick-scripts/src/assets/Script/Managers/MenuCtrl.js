@@ -31,65 +31,62 @@ var MenuCtrl = /** @class */ (function (_super) {
     function MenuCtrl() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    MenuCtrl.prototype.onLoad = function () {
-        var uid = cc.sys.localStorage.getItem('uid');
-        if (uid == undefined || uid == null || uid == "" || uid == 0) {
-            this.saveUserInfo();
-        }
-        else {
-            // Utils.ShowInfo("用户ID:" + uid.toString());
-        }
-    };
-    MenuCtrl.prototype.saveUserInfo = function (action) {
-        wx.getUserProfile({
-            desc: "获取您的昵称及头像",
-            success: function (res) {
-                UserApi_1.default.GetByName(res.userInfo.nickName, {
+    MenuCtrl.prototype.saveUserInfo = function (username, avatarUrl, action) {
+        UserApi_1.default.GetByName(username, {
+            success: function (user) {
+                // console.log("success");
+                // console.log(user);
+                cc.sys.localStorage.setItem("uid", user.id);
+                cc.sys.localStorage.setItem("nickName", user.name);
+                cc.sys.localStorage.setItem("avatarUrl", user.avatarUrl);
+                if (action)
+                    action.Do();
+            },
+            fail: function (err) {
+                // console.log("error");
+                // console.log(err);
+                // 失败时表示未找到用户，此时创建一个新用户
+                UserApi_1.default.Add(username, avatarUrl, {
                     success: function (user) {
-                        console.log("success");
-                        console.log(user);
+                        // console.log(user.id);
                         cc.sys.localStorage.setItem("uid", user.id);
                         cc.sys.localStorage.setItem("nickName", user.name);
-                        cc.sys.localStorage.setItem("avatarUrl", res.userInfo.avatarUrl);
+                        cc.sys.localStorage.setItem("avatarUrl", user.avatarUrl);
                         if (action)
                             action.Do();
                     },
                     fail: function (err) {
-                        console.log("error");
-                        console.log(err);
-                        // 失败时表示未找到用户，此时创建一个新用户
-                        UserApi_1.default.Add(res.userInfo.nickName, {
-                            success: function (user) {
-                                console.log(user.id);
-                                cc.sys.localStorage.setItem("uid", user.id);
-                                cc.sys.localStorage.setItem("nickName", user.name);
-                                cc.sys.localStorage.setItem("avatarUrl", res.userInfo.avatarUrl);
-                                if (action)
-                                    action.Do();
-                            },
-                            fail: function (err) {
-                                Utils_1.default.ShowError("用户创建失败");
-                            }
-                        });
+                        Utils_1.default.ShowError("用户创建失败");
                     }
                 });
-            },
-            fail: function (e) {
-                Utils_1.default.ShowError(e.errMsg);
             }
         });
     };
     MenuCtrl.prototype.startGame = function () {
-        var uid = cc.sys.localStorage.getItem('uid');
-        if (uid == undefined || uid == null || uid == "" || uid == 0) {
-            this.saveUserInfo({
-                Do: function () {
-                    cc.director.loadScene("MainSence", null);
+        var _this = this;
+        var nickName = cc.sys.localStorage.getItem('nickName');
+        if (nickName == undefined || nickName == null || nickName == "") {
+            wx.getUserProfile({
+                desc: "获取您的昵称及头像",
+                success: function (res) {
+                    _this.saveUserInfo(res.userInfo.nickName, res.userInfo.avatarUrl, {
+                        Do: function () {
+                            cc.director.loadScene("MainSence", null);
+                        }
+                    });
+                },
+                fail: function (e) {
+                    Utils_1.default.ShowError(e.errMsg);
                 }
             });
         }
         else {
-            cc.director.loadScene("MainSence", null);
+            var avatarUrl = cc.sys.localStorage.getItem('avatarUrl');
+            this.saveUserInfo(nickName, avatarUrl, {
+                Do: function () {
+                    cc.director.loadScene("MainSence", null);
+                }
+            });
         }
     };
     MenuCtrl.prototype.quitGame = function () {

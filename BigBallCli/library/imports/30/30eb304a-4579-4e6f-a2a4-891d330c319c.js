@@ -9,20 +9,21 @@ var Models_1 = require("../Models/Models");
 var UserApi = /** @class */ (function () {
     function UserApi() {
     }
-    UserApi.Add = function (nickname, cb) {
+    UserApi.Add = function (nickname, avatarUrl, cb) {
         var url = this.baseUrl;
         wx.request({
             url: url,
             method: "POST",
             data: {
-                "Name": nickname
+                "Name": nickname,
+                "AvatarUrl": avatarUrl
             },
             success: function (res) {
                 res = res["data"];
                 console.log(res);
                 if (res["IsSuccess"]) {
                     var data = res["Data"];
-                    var user = new Models_1.BBUser(data["ID"], data["Name"]);
+                    var user = new Models_1.BBUser(data["ID"], data["Name"], data["AvatarUrl"]);
                     cb.success(user);
                 }
                 else {
@@ -35,20 +36,21 @@ var UserApi = /** @class */ (function () {
             }
         });
     };
-    UserApi.Update = function (uid, nickname, cb) {
+    UserApi.Update = function (uid, nickname, avatarUrl, cb) {
         var url = this.baseUrl;
         wx.request({
             url: url,
             method: "POST",
             data: {
                 "ID": uid,
-                "Name": nickname
+                "Name": nickname,
+                "AvatarUrl": avatarUrl
             },
             success: function (res) {
                 res = res["data"];
                 if (res["IsSuccess"]) {
                     var data = res["Data"];
-                    var user = new Models_1.BBUser(data["ID"], data["Name"]);
+                    var user = new Models_1.BBUser(data["ID"], data["Name"], data["AvatarUrl"]);
                     cb.success(user);
                 }
                 else {
@@ -69,7 +71,7 @@ var UserApi = /** @class */ (function () {
                 res = res["data"];
                 if (res["IsSuccess"]) {
                     var data = res["Data"];
-                    var user = new Models_1.BBUser(data["ID"], data["Name"]);
+                    var user = new Models_1.BBUser(data["ID"], data["Name"], data["AvatarUrl"]);
                     cb.success(user);
                 }
                 else {
@@ -91,7 +93,7 @@ var UserApi = /** @class */ (function () {
                 // let res: Object = resp.data.valueOf();
                 if (res["IsSuccess"]) {
                     var data = res["Data"];
-                    var user = new Models_1.BBUser(data["ID"], data["Name"]);
+                    var user = new Models_1.BBUser(data["ID"], data["Name"], data["AvatarUrl"]);
                     cb.success(user);
                 }
                 else {
@@ -112,7 +114,7 @@ var UserApi = /** @class */ (function () {
                 res = res["data"];
                 if (res["IsSuccess"]) {
                     var data = res["Data"];
-                    var user = new Models_1.BBUser(data["ID"], data["Name"]);
+                    var user = new Models_1.BBUser(data["ID"], data["Name"], data["AvatarUrl"]);
                     cb.success(user);
                 }
                 else {

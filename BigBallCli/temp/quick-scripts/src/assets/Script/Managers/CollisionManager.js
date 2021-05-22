@@ -48,50 +48,52 @@ var CollisionManager = /** @class */ (function (_super) {
     CollisionManager.prototype.onDisable = function () {
         cc.director.getCollisionManager().enabled = false;
     };
-    CollisionManager.prototype.onCollisionEnter = function (other, self) {
-        if (self.tag == BoxColliderType.Ball && other.tag == BoxColliderType.Ball) {
-            var s = self.node.getComponent(Ball_1.default);
-            var o = other.node.getComponent(Ball_1.default);
-            s.velocity = cc.v2(o.velocity.y, o.velocity.x);
-        }
-        else if (self.tag == BoxColliderType.Ball && other.tag == BoxColliderType.Player) {
-        }
-        else if (self.tag == BoxColliderType.Player && other.tag == BoxColliderType.Ball) {
-            var s_1 = self.node.getComponent(Player_1.default);
-            var o = other.node.getComponent(Ball_1.default);
-            var similar = s_1.colorType == o.colorType;
-            if (!similar && s_1.mass - o.mass <= 0) {
-                // 更新用户的记录
-                var uid_1 = cc.sys.localStorage.getItem("uid");
-                if (uid_1 == undefined || uid_1 == null || uid_1 == "")
-                    uid_1 = 0;
-                var maxSeconds_1 = this.gameManager.getComponent(GameManager_1.default).maxSeconds;
-                RecordApi_1.default.GetByUId(uid_1, {
-                    success: function (record) {
-                        var w = record.weight < s_1.maxMass ? s_1.maxMass : record.weight;
-                        var t = record.maxTime < maxSeconds_1 ? maxSeconds_1 : record.maxTime;
-                        RecordApi_1.default.Update(record.id, uid_1, w, t, {
-                            success: function (record) { },
-                            fail: function (err) {
-                                Utils_1.default.ShowError("刷新记录失败");
-                            }
-                        });
-                    },
+    CollisionManager.prototype.gameOver = function (s) {
+        // 更新用户的记录
+        var uid = cc.sys.localStorage.getItem("uid");
+        if (uid == undefined || uid == null || uid == "")
+            uid = 0;
+        var maxSeconds = this.gameManager.getComponent(GameManager_1.default).maxSeconds;
+        RecordApi_1.default.GetByUId(uid, {
+            success: function (record) {
+                var w = record.weight < s.maxMass ? s.maxMass : record.weight;
+                var t = record.maxTime < maxSeconds ? maxSeconds : record.maxTime;
+                RecordApi_1.default.Update(record.id, uid, w, t, {
+                    success: function (record) { },
                     fail: function (err) {
-                        RecordApi_1.default.Add(uid_1, s_1.maxMass, maxSeconds_1, {
-                            success: function (record) { },
-                            fail: function (err) {
-                                Utils_1.default.ShowError("保存记录失败");
-                            }
-                        });
+                        Utils_1.default.ShowError("刷新记录失败");
                     }
                 });
-                cc.director.loadScene("RankSence", null);
+            },
+            fail: function (err) {
+                RecordApi_1.default.Add(uid, s.maxMass, maxSeconds, {
+                    success: function (record) { },
+                    fail: function (err) {
+                        Utils_1.default.ShowError("保存记录失败");
+                    }
+                });
+            }
+        });
+        cc.director.loadScene("RankSence", null);
+    };
+    CollisionManager.prototype.onCollisionEnter = function (other, self) {
+        // if (self.tag == BoxColliderType.Ball && other.tag == BoxColliderType.Ball) {
+        //     let s = self.node.getComponent(Ball);
+        //     let o = other.node.getComponent(Ball);
+        //     s.velocity = cc.v2(o.velocity.y, o.velocity.x)
+        // } else if(self.tag == BoxColliderType.Ball && other.tag == BoxColliderType.Player) {
+        // } else 
+        if (self.tag == BoxColliderType.Player && other.tag == BoxColliderType.Ball) {
+            var s = self.node.getComponent(Player_1.default);
+            var o = other.node.getComponent(Ball_1.default);
+            var similar = s.colorType == o.colorType;
+            if (!similar && s.raduis - o.raduis <= 3) {
+                this.gameOver(s);
                 return;
             }
-            var newRadius = !similar ? s_1.raduis - o.raduis : s_1.raduis + o.raduis;
+            var newRadius = !similar ? s.raduis - o.raduis : s.raduis + o.raduis;
             // 重新生成半径及颜色
-            s_1.calculateProperty(newRadius, o.colorType);
+            s.calculateProperty(newRadius, o.colorType);
             // 移除小球
             var canvas = cc.find("Canvas");
             canvas.removeChild(o.node, true);
@@ -101,14 +103,14 @@ var CollisionManager = /** @class */ (function (_super) {
             var s = self.node.getComponent(Ball_1.default);
             s.velocity = cc.v2(-s.velocity.x, -s.velocity.y);
         }
-        else if (self.tag == BoxColliderType.Player && other.tag == BoxColliderType.Wall) {
-            // let s = self.node.getComponent(Player);
-            // let f = s.speedLimitFator;
-            // s.speedLimitFator = -2;
-            // setTimeout(() => {
-            //     s.speedLimitFator = f;
-            // }, 1000);
-        }
+        // else if(self.tag == BoxColliderType.Player && other.tag == BoxColliderType.Wall) {
+        // let s = self.node.getComponent(Player);
+        // let f = s.speedLimitFator;
+        // s.speedLimitFator = -2;
+        // setTimeout(() => {
+        //     s.speedLimitFator = f;
+        // }, 1000);
+        // }
     };
     __decorate([
         property(cc.Node)

@@ -9,20 +9,21 @@ interface UserCallBack {
 export default class UserApi {
     private static baseUrl: string = Config.BaseURL + "/api/user/";
 
-    public static Add(nickname: string, cb: UserCallBack) {
+    public static Add(nickname: string, avatarUrl: string, cb: UserCallBack) {
         let url = this.baseUrl;
         wx.request({
             url: url,
             method: "POST",
             data: {
-                "Name": nickname
+                "Name": nickname,
+                "AvatarUrl": avatarUrl
             },
             success: (res: Object) => {
                 res = res["data"];
                 console.log(res);
                 if (res["IsSuccess"]) {
                     let data = res["Data"];
-                    let user = new BBUser(data["ID"], data["Name"]);
+                    let user = new BBUser(data["ID"], data["Name"], data["AvatarUrl"]);
                     cb.success(user);
                 } else {
                     cb.fail(res["Info"]["Message"]);
@@ -35,20 +36,21 @@ export default class UserApi {
         });
     }
 
-    public static Update(uid: number, nickname: string, cb: UserCallBack) {
+    public static Update(uid: number, nickname: string, avatarUrl: string, cb: UserCallBack) {
         let url = this.baseUrl;
         wx.request({
             url: url,
             method: "POST",
             data: {
                 "ID": uid,
-                "Name": nickname
+                "Name": nickname,
+                "AvatarUrl": avatarUrl
             },
             success: (res: Object) => {
                 res = res["data"];
                 if (res["IsSuccess"]) {
                     let data = res["Data"];
-                    let user = new BBUser(data["ID"], data["Name"]);
+                    let user = new BBUser(data["ID"], data["Name"], data["AvatarUrl"]);
                     cb.success(user);
                 } else {
                     cb.fail(res["Info"]["Message"]);
@@ -69,7 +71,7 @@ export default class UserApi {
                 res = res["data"];
                 if (res["IsSuccess"]) {
                     let data = res["Data"];
-                    let user = new BBUser(data["ID"], data["Name"]);
+                    let user = new BBUser(data["ID"], data["Name"], data["AvatarUrl"]);
                     cb.success(user);
                 } else {
                     cb.fail(res["Info"]["Message"]);
@@ -91,7 +93,7 @@ export default class UserApi {
                 // let res: Object = resp.data.valueOf();
                 if (res["IsSuccess"]) {
                     let data = res["Data"];
-                    let user = new BBUser(data["ID"], data["Name"]);
+                    let user = new BBUser(data["ID"], data["Name"], data["AvatarUrl"]);
                     cb.success(user);
                 } else {
                     cb.fail(res["Info"]["Message"]);
@@ -112,7 +114,7 @@ export default class UserApi {
                 res = res["data"];
                 if (res["IsSuccess"]) {
                     let data = res["Data"];
-                    let user = new BBUser(data["ID"], data["Name"]);
+                    let user = new BBUser(data["ID"], data["Name"], data["AvatarUrl"]);
                     cb.success(user);
                 } else {
                     cb.fail(res["Info"]["Message"]);

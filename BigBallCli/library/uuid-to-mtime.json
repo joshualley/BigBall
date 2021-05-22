@@ -530,8 +530,8 @@
     "relativePath": "Texture\\circlebg.png"
   },
   "63f58ffe-685a-402b-a613-07af9972f423": {
-    "asset": 1619774787991,
-    "meta": 1619795610724,
+    "asset": 1620013240735,
+    "meta": 1621671298385,
     "relativePath": "resources\\Prefabs"
   },
   "7d243e2a-b35d-4bae-b5c4-793f0a77191b": {
@@ -764,11 +764,6 @@
     "meta": 1619875244652,
     "relativePath": "Script\\Models"
   },
-  "fd4e4eff-80f8-4be5-a2a4-237907dd430c": {
-    "asset": 1619876394692,
-    "meta": 1619883499993,
-    "relativePath": "Script\\Models\\Models.ts"
-  },
   "fac2e38e-a54a-4d3e-b3d2-5c8b43011a0f": {
     "asset": 1619912965055,
     "meta": 1619913246749,
@@ -789,25 +784,10 @@
     "meta": 1620003119722,
     "relativePath": "Script\\Utils\\Utils.ts"
   },
-  "30eb304a-4579-4e6f-a2a4-891d330c319c": {
-    "asset": 1620004877923,
-    "meta": 1620004888074,
-    "relativePath": "Script\\Api\\UserApi.ts"
-  },
   "f7d0c469-f780-46ed-ae0b-71fde067ced0": {
     "asset": 1620009527780,
     "meta": 1620009535318,
     "relativePath": "Script\\Api\\RankApi.ts"
-  },
-  "ec83212b-1f2e-4c68-9614-3be77af4aaee": {
-    "asset": 1620011859502,
-    "meta": 1620011937017,
-    "relativePath": "Script\\Managers\\MenuCtrl.ts"
-  },
-  "8ccabd03-d0c6-40a2-9932-b9312f084484": {
-    "asset": 1620012121299,
-    "meta": 1620012127069,
-    "relativePath": "Script\\Managers\\CollisionManager.ts"
   },
   "feb5f960-1bf3-46e3-a4f1-85595d81c34a": {
     "asset": 1620011989813,
@@ -833,5 +813,25 @@
     "asset": 1620013240687,
     "meta": 1620013240736,
     "relativePath": "resources\\Prefabs\\RankItem.prefab"
+  },
+  "30eb304a-4579-4e6f-a2a4-891d330c319c": {
+    "asset": 1621690033157,
+    "meta": 1621690555922,
+    "relativePath": "Script\\Api\\UserApi.ts"
+  },
+  "ec83212b-1f2e-4c68-9614-3be77af4aaee": {
+    "asset": 1621690490163,
+    "meta": 1621690556128,
+    "relativePath": "Script\\Managers\\MenuCtrl.ts"
+  },
+  "fd4e4eff-80f8-4be5-a2a4-237907dd430c": {
+    "asset": 1621676586167,
+    "meta": 1621690556195,
+    "relativePath": "Script\\Models\\Models.ts"
+  },
+  "8ccabd03-d0c6-40a2-9932-b9312f084484": {
+    "asset": 1621690876033,
+    "meta": 1621690889446,
+    "relativePath": "Script\\Managers\\CollisionManager.ts"
   }
 }

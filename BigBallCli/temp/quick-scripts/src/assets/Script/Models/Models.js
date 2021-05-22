@@ -6,9 +6,10 @@ cc._RF.push(module, 'fd4e47/gPhL5aKkI3kH3UMM', 'Models');
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BBRecord = exports.BBRank = exports.BBUser = void 0;
 var BBUser = /** @class */ (function () {
-    function BBUser(id, name) {
+    function BBUser(id, name, avatarUrl) {
         this.id = id;
         this.name = name;
+        this.avatarUrl = avatarUrl;
     }
     return BBUser;
 }());
