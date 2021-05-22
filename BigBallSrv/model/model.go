@@ -3,6 +3,7 @@ package model
 type User struct {
 	ID   int64  `gorm:"column:id"`
 	Name string `gorm:"column:name"`
+	AvatarUrl string `gorm:"avatar_url"`
 }
 
 func (u *User) TableName() string {

@@ -2,7 +2,8 @@ use bigball;
 
 create table if not exists `User`(
 	`id` bigint unsigned primary key not null auto_increment,
-    `name` varchar(55) not null
+    `name` varchar(55) not null,
+    `avatar_url` varchar(255) not null
 )
 engine=innodb default charset=utf8;
 
