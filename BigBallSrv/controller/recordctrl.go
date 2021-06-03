@@ -114,8 +114,8 @@ func insertOrUpdateRecord(c *gin.Context) {
 	if db.NewRecord(&record) {
 		db.Create(&record)
 	} else {
-		db.Update(&record)
-		// db.Exec("update Record set weight = ?, max_time = ? where id = ?", record.Weight, record.MaxTime, record.ID)
+		// db.Update(&record)
+		db.Exec("update Record set weight = ?, max_time = ? where id = ?", record.Weight, record.MaxTime, record.ID)
 	}
 
 	c.JSON(http.StatusOK, dto.NewRespDto(dto.Ok, record))
