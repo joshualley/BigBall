@@ -510,8 +510,8 @@
     "relativePath": "Script"
   },
   "7b81d4e8-ec84-4716-968d-500ac1d78a54": {
-    "asset": 1619771058408,
-    "meta": 1619795610729,
+    "asset": 1622724161750,
+    "meta": 1622730363023,
     "relativePath": "Texture"
   },
   "2d2f792f-a40c-49bb-a189-ed176a246e49": {
@@ -520,8 +520,8 @@
     "relativePath": "Scene\\MenuSence.fire"
   },
   "81e78892-4e9a-4151-ad48-85c3a17e5693": {
-    "asset": 1619767911073,
-    "meta": 1619767911091,
+    "asset": 1622730509685,
+    "meta": 1622730509706,
     "relativePath": "Scene\\MainSence.fire"
   },
   "bd27d671-4477-43e8-9efb-cc591ea5891b": {
@@ -553,11 +553,6 @@
     "asset": 1616509985250,
     "meta": 1616510128316,
     "relativePath": "Texture\\rank_list_btn.png"
-  },
-  "1e4298b3-fedf-4c34-b43c-3a547650c8c6": {
-    "asset": 1616510115043,
-    "meta": 1616510128337,
-    "relativePath": "Texture\\bg.png"
   },
   "609e0be8-278b-4d65-b78b-e91f5439ba86": {
     "asset": 1616509933186,
@@ -744,11 +739,6 @@
     "meta": 1619798295462,
     "relativePath": "Script\\Rock\\Rocker.ts"
   },
-  "f800df95-ebba-4c9d-a9d6-6da538de88dd": {
-    "asset": 1619798221415,
-    "meta": 1619798295480,
-    "relativePath": "Script\\Rock\\RockerCore.ts"
-  },
   "72e88044-665a-4314-ab85-946603c1b58b": {
     "asset": 1619883499775,
     "meta": 1619913246575,
@@ -799,11 +789,6 @@
     "meta": 1620012301854,
     "relativePath": "Script\\RankList\\LoadUserAvatar.ts"
   },
-  "4a0e9680-df37-44d0-aec9-8ef3f1a4e74c": {
-    "asset": 1620012365239,
-    "meta": 1620012372377,
-    "relativePath": "Script\\Roles\\Ball.ts"
-  },
   "85524df4-c43c-41a7-93d3-65134629f26d": {
     "asset": 1620013108868,
     "meta": 1620013112542,
@@ -833,5 +818,30 @@
     "asset": 1621690876033,
     "meta": 1621690889446,
     "relativePath": "Script\\Managers\\CollisionManager.ts"
+  },
+  "5eb86e5c-d68e-4a1b-9172-ea7ca518303b": {
+    "asset": 1622723888592,
+    "meta": 1622723919804,
+    "relativePath": "Texture\\bg_vertical_flip.png"
+  },
+  "06394fe0-3ffe-490c-aba4-15642e4b99a3": {
+    "asset": 1622723912807,
+    "meta": 1622723919807,
+    "relativePath": "Texture\\bg_horizental_flip.png"
+  },
+  "63183486-4f45-4221-b417-f989720504cb": {
+    "asset": 1622724153397,
+    "meta": 1622724161859,
+    "relativePath": "Texture\\bg_flip.png"
+  },
+  "4a0e9680-df37-44d0-aec9-8ef3f1a4e74c": {
+    "asset": 1622731748585,
+    "meta": 1622731752014,
+    "relativePath": "Script\\Roles\\Ball.ts"
+  },
+  "f800df95-ebba-4c9d-a9d6-6da538de88dd": {
+    "asset": 1622731945609,
+    "meta": 1622731947827,
+    "relativePath": "Script\\Rock\\RockerCore.ts"
   }
 }

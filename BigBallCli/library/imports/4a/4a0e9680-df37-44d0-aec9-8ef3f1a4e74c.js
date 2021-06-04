@@ -30,8 +30,10 @@ var Ball = /** @class */ (function (_super) {
     function Ball() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.raduis = 10;
-        _this.velocity = new cc.Vec2(500, 500);
+        _this.velocity = new cc.Vec2(1000, 1000);
         _this.mass = 0;
+        _this.maxHeight = 1600;
+        _this.maxWidth = 2880;
         return _this;
     }
     Ball.prototype.randomDir = function () {
@@ -52,7 +54,8 @@ var Ball = /** @class */ (function (_super) {
     Ball.prototype.onLoad = function () {
         // 设置半径
         var canvas = cc.find("Canvas");
-        var maxRaduis = canvas.getChildByName("Player").getComponent(Player_1.default).raduis + 5;
+        var player = canvas.getChildByName("Player").getComponent(Player_1.default);
+        var maxRaduis = player.raduis + 5;
         this.raduis = Math.random() * maxRaduis;
         this.raduis = this.raduis < 20 ? 20 : this.raduis;
         this.node.width = this.raduis * 2;
@@ -62,8 +65,15 @@ var Ball = /** @class */ (function (_super) {
         var collider = this.node.getComponent(cc.CircleCollider);
         collider.radius = this.raduis;
         // 初始位置、速度、方向
-        this.node.x = this.randomDir() * Math.random() * cc.winSize.width / 2 + this.raduis;
-        this.node.y = this.randomDir() * Math.random() * cc.winSize.height / 2 - this.raduis;
+        var x;
+        var y;
+        do {
+            x = this.randomDir() * Math.random() * this.maxWidth + this.raduis - 200;
+            y = this.randomDir() * Math.random() * this.maxHeight - this.raduis + 200;
+        } while (Math.abs(player.node.x - x) < player.raduis + this.raduis + 200 &&
+            Math.abs(player.node.y - y) < player.raduis + this.raduis + 200);
+        this.node.x = x;
+        this.node.y = y;
         this.setSpriteFrame();
         this.node.opacity = 160;
         this.velocity.x *= Math.random() * this.randomDir();

@@ -29,24 +29,51 @@ var RockerCore = /** @class */ (function (_super) {
     __extends(RockerCore, _super);
     function RockerCore() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.palyer = null;
+        _this.player = null;
         // 衰减系数
         _this.decayFactor = 0.3;
+        _this.maxHeight = 1600;
+        _this.maxWidth = 2880;
+        _this.step = 2;
         return _this;
     }
     RockerCore.prototype.update = function (dt) {
         if (this.node.x == 0 && this.node.y == 0) {
-            this.palyer.velocity.x *= this.decayFactor;
-            this.palyer.velocity.y *= this.decayFactor;
+            this.player.velocity.x *= this.decayFactor;
+            this.player.velocity.y *= this.decayFactor;
         }
         else {
-            this.palyer.velocity.x = this.node.x * this.palyer.speedLimitFator;
-            this.palyer.velocity.y = this.node.y * this.palyer.speedLimitFator;
+            // left side
+            if (this.player.node.x - this.player.raduis <= -this.maxWidth) {
+                this.player.velocity.x = 0;
+                this.player.node.x += this.step;
+            }
+            // right side
+            else if (this.player.node.x + this.player.raduis >= this.maxWidth) {
+                this.player.velocity.x = 0;
+                this.player.node.x -= this.step;
+            }
+            else {
+                this.player.velocity.x = this.node.x * this.player.speedLimitFator;
+            }
+            // top side
+            if (this.player.node.y + this.player.raduis >= this.maxHeight) {
+                this.player.velocity.y = 0;
+                this.player.node.y -= this.step;
+            }
+            // bottom side
+            else if (this.player.node.y - this.player.raduis <= -this.maxHeight) {
+                this.player.velocity.y = 0;
+                this.player.node.y += this.step;
+            }
+            else {
+                this.player.velocity.y = this.node.y * this.player.speedLimitFator;
+            }
         }
     };
     __decorate([
         property(Player_1.default)
-    ], RockerCore.prototype, "palyer", void 0);
+    ], RockerCore.prototype, "player", void 0);
     RockerCore = __decorate([
         ccclass
     ], RockerCore);

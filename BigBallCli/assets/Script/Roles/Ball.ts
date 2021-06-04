@@ -8,9 +8,12 @@ export default class Ball extends cc.Component {
     @property
     raduis: number = 10;
     @property
-    velocity: cc.Vec2 = new cc.Vec2(500, 500);
+    velocity: cc.Vec2 = new cc.Vec2(1000, 1000);
     mass: number = 0;
     colorType: number;
+
+    maxHeight: number = 1600;
+    maxWidth: number = 2880;
     
     randomDir(): number {
         return Math.random() > 0.5 ? 1 : -1;
@@ -19,18 +22,19 @@ export default class Ball extends cc.Component {
     setSpriteFrame() {
         let sprite = this.node.getComponent(cc.Sprite);
         this.colorType = Math.ceil(Math.random() * 8);
-        let fn = 'balls/ball_'+ this.colorType.toString()
+        let fn = 'balls/ball_'+ this.colorType.toString();
         cc.resources.load(fn,  (err, res) => {
             if(err) return;
             if(!(res instanceof cc.Texture2D)) return;
             sprite.spriteFrame = new cc.SpriteFrame(res);
-        })
+        });
     }
 
     onLoad () {
         // 设置半径
         let canvas = cc.find("Canvas");
-        let maxRaduis = canvas.getChildByName("Player").getComponent(Player).raduis + 5;
+        let player = canvas.getChildByName("Player").getComponent(Player);
+        let maxRaduis = player.raduis + 5;
         this.raduis = Math.random() * maxRaduis;
         this.raduis = this.raduis < 20 ? 20 : this.raduis;
         this.node.width = this.raduis * 2;
@@ -40,8 +44,17 @@ export default class Ball extends cc.Component {
         let collider = this.node.getComponent(cc.CircleCollider);
         collider.radius = this.raduis;
         // 初始位置、速度、方向
-        this.node.x = this.randomDir()*Math.random()*cc.winSize.width/2 + this.raduis;
-        this.node.y = this.randomDir()*Math.random()*cc.winSize.height/2 - this.raduis;
+        let x: number
+        let y: number;
+        do {
+            x = this.randomDir()*Math.random()*this.maxWidth + this.raduis - 200;
+            y = this.randomDir()*Math.random()*this.maxHeight - this.raduis + 200;
+        }while(
+            Math.abs(player.node.x - x) < player.raduis + this.raduis + 200 && 
+            Math.abs(player.node.y - y) < player.raduis + this.raduis + 200
+        );
+        this.node.x = x;
+        this.node.y = y;
         this.setSpriteFrame();
         this.node.opacity = 160;
         this.velocity.x *= Math.random() * this.randomDir();
